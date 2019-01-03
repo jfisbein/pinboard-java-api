@@ -3,8 +3,7 @@ Pingboard.in Java API
 
 Java implementation of the [pingboard.in API](https://pinboard.in/api/).
 
-[![Release](https://jitpack.io/v/jfisbein/pinboard-java-api.svg)]
-(https://jitpack.io/#jfisbein/pinboard-java-api)
+[![Release](https://jitpack.io/v/jfisbein/pinboard-java-api.svg)](https://jitpack.io/#jfisbein/pinboard-java-api)
 
 Usage
 -----
