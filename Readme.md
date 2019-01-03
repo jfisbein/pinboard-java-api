@@ -38,4 +38,4 @@ gradle: check https://jitpack.io/#jfisbein/pinboard-java-api
 ```
 
 ## Javadoc
-Javadoc is hosted on jitpack: https://jitpack.io/com/github/jfisbein/pinboard-java-api/latest/javadoc/
+Javadoc is hosted on jitpack: https://jitpack.io/com/github/jfisbein/pinboard-java-api/0.1.0/javadoc/
