@@ -24,7 +24,7 @@ add the library dependency to you pom.xml:
 <dependency>
     <groupId>com.github.jfisbein</groupId>
     <artifactId>pinboard-java-api</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
 </dependency>
 ```
 
@@ -42,4 +42,4 @@ class Test {
 ```
 
 ## Javadoc
-Javadoc is hosted on jitpack: https://jitpack.io/com/github/jfisbein/pinboard-java-api/0.1.0/javadoc/
+Javadoc is hosted on jitpack: https://jitpack.io/com/github/jfisbein/pinboard-java-api/0.2.0/javadoc/
