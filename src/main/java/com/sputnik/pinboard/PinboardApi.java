@@ -7,6 +7,7 @@ import com.sputnik.pinboard.model.NotesResult;
 import com.sputnik.pinboard.model.Post;
 import com.sputnik.pinboard.model.PostsResponse;
 import com.sputnik.pinboard.model.Result;
+import com.sputnik.pinboard.model.SuggestedTags;
 import com.sputnik.pinboard.model.YesNo;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -58,7 +59,7 @@ public interface PinboardApi {
                                  @Query("meta") Integer meta);
 
     @GET("/v1/posts/suggest")
-    Call<List<Map<String, List<String>>>> suggestTags(@NotNull @Query("url") URL url);
+    Call<SuggestedTags> suggestTags(@NotNull @Query("url") URL url);
 
     @GET("/v1/tags/get")
     Call<Map<String, Integer>> getUserTags();
