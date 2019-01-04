@@ -3,18 +3,21 @@ package com.sputnik.pinboard;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.Data;
+import lombok.experimental.UtilityClass;
 import okhttp3.Credentials;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 
 @Data
+@UtilityClass
 public class Pinboard {
 
     /**
@@ -25,7 +28,19 @@ public class Pinboard {
      * @return Pinboard API client
      */
     public static PinboardApi getApi(String username, String password) {
-        return init(new PinboardUserAndPasswordAuthInterceptor(username, password));
+        return getApi(username, password, false);
+    }
+
+    /**
+     * Get Pinboard API client with authentication by username and password.
+     *
+     * @param username Username
+     * @param password Password
+     * @param debug    show all request and responses
+     * @return Pinboard API client
+     */
+    public static PinboardApi getApi(String username, String password, boolean debug) {
+        return init(new PinboardUserAndPasswordAuthInterceptor(username, password), debug);
     }
 
     /**
@@ -35,24 +50,44 @@ public class Pinboard {
      * @return Pinboard API client
      */
     public static PinboardApi getApi(String authToken) {
-        return init(new PinboardTokenAuthInterceptor(authToken));
+        return getApi(authToken, false);
+    }
+
+    /**
+     * Get Pinboard API client with authentication by user token.
+     *
+     * @param authToken Authentication token
+     * @param debug     show all request and responses
+     * @return Pinboard API client
+     */
+    public static PinboardApi getApi(String authToken, boolean debug) {
+        return init(new PinboardTokenAuthInterceptor(authToken), debug);
     }
 
     /**
      * Initializes Pinboard API client with authentication interceptor.
      *
      * @param authInterceptor Authentication interceptor.
+     * @param debug           show all request and responses
      * @return Pinboard API client.
      */
-    private static PinboardApi init(Interceptor authInterceptor) {
+    private static PinboardApi init(Interceptor authInterceptor, boolean debug) {
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
                 .create();
 
+        OkHttpClient httpClient = getHttpClient(authInterceptor);
+
+        if (debug) {
+            httpClient = httpClient
+                    .newBuilder()
+                    .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                    .build();
+        }
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.pinboard.in/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(getHttpClient(authInterceptor))
+                .client(httpClient)
                 .build();
 
         return retrofit.create(PinboardApi.class);

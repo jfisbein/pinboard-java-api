@@ -1,7 +1,7 @@
 Pingboard.in Java API
 =====================
 
-Java implementation of the [pingboard.in API](https://pinboard.in/api/).
+Java implementation of the [Pingboard.in API](https://pinboard.in/api/).
 
 [![Release](https://jitpack.io/v/jfisbein/pinboard-java-api.svg)](https://jitpack.io/#jfisbein/pinboard-java-api)
 
@@ -32,9 +32,13 @@ gradle: check https://jitpack.io/#jfisbein/pinboard-java-api
 
 ### Start using it 
 ```java
-    PinboardApi api = Pinboard.getApi("usertoken");
-    PostsResponse response = api.getRecentPosts(null, 5).execute().body();
-    response.getPosts().forEach(System.out::println);
+class Test {
+    public static void main(String[] args){
+        PinboardApi api = Pinboard.getApi("put your user token here"); //can be used also with username and password
+        PostsResponse response = api.getRecentPosts(null, 5).execute().body();
+        response.getPosts().forEach(System.out::println);
+    }
+}
 ```
 
 ## Javadoc
